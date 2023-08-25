@@ -21,9 +21,9 @@ let numButtons = document.querySelectorAll(".button.number")
 let numButtonsArray = Array.from(numButtons)
 for (let button of numButtonsArray) {
     button.addEventListener("click", function(e) {
-        console.log("Number button clicked")
-        console.log("Start:")
-        console.log({displayValue, a, b, operator, recentOperator, recentEquals})
+        // console.log("Number button clicked")
+        // console.log("Start:")
+        // console.log({displayValue, a, b, operator, recentOperator, recentEquals})
         if (e.target.matches(".number")) {
             // If operator was the last button pressed, init_display
             if (recentOperator) {
@@ -35,6 +35,9 @@ for (let button of numButtonsArray) {
             if (recentEquals) {
                 init_display();
                 recentEquals = false;
+                a = '';
+                b = '';
+                operator = '';
             };
 
             // If displayValue is 0, don't show leading 0
@@ -46,8 +49,8 @@ for (let button of numButtonsArray) {
             };
             // Populate value in html
             display.innerHTML = displayValue;
-        console.log("End:")
-        console.log({displayValue, a, b, operator, recentOperator, recentEquals})
+        // console.log("End:")
+        // console.log({displayValue, a, b, operator, recentOperator, recentEquals})
         };
     });
 };
@@ -56,9 +59,9 @@ let opButtons = document.querySelectorAll(".button.operator")
 let opButtonsArray = Array.from(opButtons)
 for (let button of opButtonsArray) {
     button.addEventListener("click", function(e) {
-        console.log("Operator button clicked")
-        console.log("Start:")
-        console.log({displayValue, a, b, operator, recentOperator, recentEquals})
+        // console.log("Operator button clicked")
+        // console.log("Start:")
+        // console.log({displayValue, a, b, operator, recentOperator, recentEquals})
         if (e.target.matches(".operator")) {
             if (a != '' && recentOperator === false && recentEquals === false) {
                 b = displayValue;
@@ -72,6 +75,10 @@ for (let button of opButtonsArray) {
                 b = '';
             }
 
+            if (recentEquals === true) {
+                recentEquals = false;
+            };
+
             operator = e.target.innerHTML;
 
             if (recentOperator != true) {
@@ -80,16 +87,16 @@ for (let button of opButtonsArray) {
 
             recentOperator = true;
         }
-        console.log("End:")
-        console.log({displayValue, a, b, operator, recentOperator, recentEquals})
+        // console.log("End:")
+        // console.log({displayValue, a, b, operator, recentOperator, recentEquals})
     });
 };
 
 let equals = document.querySelector(".equals")
 equals.addEventListener("click", function() {
-    console.log("Equals button clicked")
-    console.log("Start")
-    console.log({displayValue, a, b, operator, recentOperator, recentEquals})
+    // console.log("Equals button clicked")
+    // console.log("Start")
+    // console.log({displayValue, a, b, operator, recentOperator, recentEquals})
     if (a != '' && recentOperator === false) {
         if (recentEquals === false) {
             b = displayValue;
@@ -110,9 +117,10 @@ equals.addEventListener("click", function() {
             display.innerHTML = displayValue;
             a = displayValue;
         };
+        recentOperator = false;
     };
-    console.log("End:")
-    console.log({displayValue, a, b, operator, recentOperator, recentEquals})
+    // console.log("End:")
+    // console.log({displayValue, a, b, operator, recentOperator, recentEquals})
 });
 
 // Function definitions:
@@ -162,6 +170,7 @@ function clear() {
     b = '';
     operator = '';
     recentOperator = false;
+    recentEquals = false;
 }
 
 
